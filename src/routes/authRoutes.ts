@@ -16,6 +16,9 @@ router.get('/google/callback', authController.handleGoogleLoginCallback);
 // 2. JWT 로그인 성공 유저 전용 프로필 조회 API (Header: Bearer [Token] 필요)
 router.get('/profile', authenticateJwt, authController.getProfile);
 
+// 4. 로그아웃 API (Header: Bearer [Token] 필요, 해당 토큰 즉시 무효화)
+router.post('/logout', authenticateJwt, authController.logout);
+
 // 3. 국적 선택 및 저장 API (Header: Bearer [Token] 필요)
 router.patch('/nationality', authenticateJwt, authController.updateNationality);
 

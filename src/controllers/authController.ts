@@ -142,6 +142,35 @@ export class AuthController {
   };
 
   /**
+   * [POST] /api/auth/logout
+   * 현재 JWT를 서버 측 블랙리스트에 등록하여 로그아웃 처리
+   */
+  logout = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
+    try {
+      if (!req.token) {
+        res.status(401).json({
+          success: false,
+          message: '로그인이 필요합니다.'
+        });
+        return;
+      }
+
+      this.authService.logout(req.token);
+
+      res.status(200).json({
+        success: true,
+        message: '로그아웃 성공'
+      });
+    } catch (error: any) {
+      console.error(`[AuthController] logout 실패 세부로그: ${error.stack || error.message}`);
+      res.status(500).json({
+        success: false,
+        message: '로그아웃 처리에 실패했습니다.'
+      });
+    }
+  };
+
+  /**
    * [PATCH] /api/auth/nationality
    * 로그인한 유저의 국적(nationality)을 선택/저장
    */

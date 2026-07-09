@@ -31,6 +31,29 @@ const cleanExpiredStates = (): void => {
   }
 };
 
+// 로그아웃 처리된 JWT 인메모리 블랙리스트 (세션 미사용, state 저장소와 동일 설계)
+const tokenBlacklist = new Map<string, number>(); // token -> 만료 시각(ms)
+
+/**
+ * 인메모리 내 만료된 블랙리스트 토큰 정리 루틴
+ */
+const cleanExpiredBlacklist = (): void => {
+  const now = Date.now();
+  for (const [token, expiresAt] of tokenBlacklist.entries()) {
+    if (now > expiresAt) {
+      tokenBlacklist.delete(token);
+    }
+  }
+};
+
+/**
+ * 해당 토큰이 로그아웃 처리(블랙리스트 등록)되었는지 확인
+ */
+export const isTokenBlacklisted = (token: string): boolean => {
+  cleanExpiredBlacklist();
+  return tokenBlacklist.has(token);
+};
+
 export class AuthService {
   private userRepository = userRepository;
 
@@ -190,6 +213,22 @@ export class AuthService {
       config.jwtSecret,
       { expiresIn: '7d' } // 7일간 유지
     );
+  }
+
+  /**
+   * 로그아웃: 전달받은 JWT를 만료 시각까지 블랙리스트에 등록하여 즉시 무효화
+   * @param token 무효화할 JWT (Bearer 헤더에서 추출된 값)
+   */
+  logout(token: string): void {
+    cleanExpiredBlacklist();
+
+    // 토큰의 실제 만료 시각(exp)까지만 블랙리스트에 보관 (그 이후엔 자연 만료)
+    const decoded = jwt.decode(token) as { exp?: number } | null;
+    const expiresAt = decoded?.exp
+      ? decoded.exp * 1000
+      : Date.now() + 7 * 24 * 60 * 60 * 1000; // exp가 없으면 발급 유효기간(7일)만큼 보관
+
+    tokenBlacklist.set(token, expiresAt);
   }
 
   /**

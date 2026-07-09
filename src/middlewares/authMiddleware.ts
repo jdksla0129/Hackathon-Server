@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { config } from '../config/env';
 import { userRepository } from '../repositories/userRepository';
+import { isTokenBlacklisted } from '../services/authService';
 
 // Express Request 인터페이스 확장하여 req.user 타입 정의 (실시간 최신 상태 프로필 포함)
 export interface AuthenticatedRequest extends Request {
@@ -12,6 +13,7 @@ export interface AuthenticatedRequest extends Request {
     picture?: string;
     nationality?: string | null;
   };
+  token?: string; // 로그아웃 등에서 원본 JWT가 필요할 때 사용
 }
 
 export const authenticateJwt = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
@@ -26,6 +28,15 @@ export const authenticateJwt = async (req: AuthenticatedRequest, res: Response, 
   }
 
   const token = authHeader.split(' ')[1];
+
+  // 로그아웃으로 블랙리스트에 등록된 토큰은 유효기간이 남아도 거부
+  if (isTokenBlacklisted(token)) {
+    res.status(401).json({
+      success: false,
+      message: '로그아웃 처리된 토큰입니다. 다시 로그인해 주세요.'
+    });
+    return;
+  }
 
   try {
     // JWT에서는 오직 고유 id만 복호화 (프로필 변경에 실시간 대처 가능)
@@ -50,6 +61,7 @@ export const authenticateJwt = async (req: AuthenticatedRequest, res: Response, 
       picture: user.picture,
       nationality: user.nationality
     };
+    req.token = token;
 
     next();
   } catch (error: any) {
