@@ -1,0 +1,7 @@
+[
+  { "code": "US", "name_ko": "미국", "name_en": "United States", "seeded": true },
+  { "code": "CA", "name_ko": "캐나다", "name_en": "Canada", "seeded": true },
+  { "code": "AU", "name_ko": "호주", "name_en": "Australia", "seeded": true },
+  { "code": "NZ", "name_ko": "뉴질랜드", "name_en": "New Zealand", "seeded": false },
+  { "code": "GB", "name_ko": "영국", "name_en": "United Kingdom", "seeded": false }
+]

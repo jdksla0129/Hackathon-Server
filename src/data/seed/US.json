@@ -1,0 +1,235 @@
+{
+  "to": "US",
+  "disclaimer": "본 정보는 참고용이며, 최신 요건은 반드시 공식 기관에서 확인하세요.",
+  "sources": [
+    "https://travel.state.gov",
+    "https://www.uscis.gov"
+  ],
+  "visaTypes": ["skilled", "family"],
+  "documents": {
+    "skilled": [
+      {
+        "name_ko": "여권 (6개월 이상 유효)",
+        "name_en": "Passport (valid for at least 6 months)",
+        "issuer_ko": "외교부",
+        "apostille_required": false,
+        "translation_required": false,
+        "validity_months": 6,
+        "required_for": "all",
+        "official_link": "https://www.passport.go.kr",
+        "notes": "만료일이 최소 6개월 이상 남아있어야 합니다."
+      },
+      {
+        "name_ko": "기본증명서 (상세)",
+        "name_en": "Basic Certificate (Detailed)",
+        "issuer_ko": "대법원 전자가족관계등록시스템",
+        "apostille_required": true,
+        "translation_required": true,
+        "validity_months": 6,
+        "required_for": "all",
+        "official_link": "https://efamily.scourt.go.kr",
+        "notes": "상세 버전으로 발급받아야 하며 번역 및 아포스티유가 필요합니다."
+      },
+      {
+        "name_ko": "가족관계증명서 (상세)",
+        "name_en": "Family Relation Certificate (Detailed)",
+        "issuer_ko": "대법원 전자가족관계등록시스템",
+        "apostille_required": true,
+        "translation_required": true,
+        "validity_months": 6,
+        "required_for": "all",
+        "official_link": "https://efamily.scourt.go.kr",
+        "notes": "상세 버전으로 발급받아야 하며 번역 및 아포스티유가 필요합니다."
+      },
+      {
+        "name_ko": "혼인관계증명서 (상세)",
+        "name_en": "Marriage Relation Certificate (Detailed)",
+        "issuer_ko": "대법원 전자가족관계등록시스템",
+        "apostille_required": true,
+        "translation_required": true,
+        "validity_months": 6,
+        "required_for": "family_only",
+        "official_link": "https://efamily.scourt.go.kr",
+        "notes": "배우자 동반 시 필수 서류입니다. 번역 및 아포스티유 필수."
+      },
+      {
+        "name_ko": "범죄·수사경력회보서 (외국 입국·체류 허가용)",
+        "name_en": "Police Clearance Certificate",
+        "issuer_ko": "경찰청",
+        "apostille_required": true,
+        "translation_required": true,
+        "validity_months": 6,
+        "required_for": "all",
+        "official_link": "https://crims.police.go.kr",
+        "notes": "실효된 형을 포함하여 발급받아야 하며 영문 발급 시 아포스티유 필요."
+      },
+      {
+        "name_ko": "출입국에 관한 사실증명",
+        "name_en": "Certificate of Entry & Exit",
+        "issuer_ko": "정부24",
+        "apostille_required": true,
+        "translation_required": true,
+        "validity_months": 6,
+        "required_for": "all",
+        "official_link": "https://www.gov.kr",
+        "notes": "출생일로부터 현재까지의 기록을 포함하여 발급해야 합니다."
+      },
+      {
+        "name_ko": "이민 신체검사서 (I-693 등)",
+        "name_en": "Report of Immigration Medical Examination",
+        "issuer_ko": "미국 대사관 지정 병원",
+        "apostille_required": false,
+        "translation_required": false,
+        "validity_months": 12,
+        "required_for": "all",
+        "official_link": "https://kr.usembassy.gov",
+        "notes": "미국 대사관이 지정한 병원에서 검진을 받아야 합니다."
+      },
+      {
+        "name_ko": "취업이민 청원서 (I-140)",
+        "name_en": "Immigrant Petition for Alien Workers (Form I-140)",
+        "issuer_ko": "USCIS (미국 시민권 이민서비스국)",
+        "apostille_required": false,
+        "translation_required": false,
+        "validity_months": 0,
+        "required_for": "main_applicant",
+        "official_link": "https://www.uscis.gov/i-140",
+        "notes": "고용주가 노동허가서(PERM) 승인 후 USCIS에 제출해야 합니다."
+      },
+      {
+        "name_ko": "온라인 이민비자 신청서 (DS-260)",
+        "name_en": "Online Immigrant Visa Application (DS-260)",
+        "issuer_ko": "NVC (국립비자센터)",
+        "apostille_required": false,
+        "translation_required": false,
+        "validity_months": 0,
+        "required_for": "all",
+        "official_link": "https://ceac.state.gov",
+        "notes": "NVC 단계에서 온라인으로 작성 후 제출합니다."
+      },
+      {
+        "name_ko": "재정 보증서 (I-864)",
+        "name_en": "Affidavit of Support (Form I-864)",
+        "issuer_ko": "초청인 / 주신청인",
+        "apostille_required": false,
+        "translation_required": false,
+        "validity_months": 12,
+        "required_for": "main_applicant",
+        "official_link": "https://www.uscis.gov/i-864",
+        "notes": "미국 내 보증인이 연방 빈곤선의 125% 이상 소득을 증명해야 합니다."
+      }
+    ],
+    "family": [
+      {
+        "name_ko": "여권 (6개월 이상 유효)",
+        "name_en": "Passport (valid for at least 6 months)",
+        "issuer_ko": "외교부",
+        "apostille_required": false,
+        "translation_required": false,
+        "validity_months": 6,
+        "required_for": "all",
+        "official_link": "https://www.passport.go.kr",
+        "notes": "만료일이 최소 6개월 이상 남아있어야 합니다."
+      },
+      {
+        "name_ko": "기본증명서 (상세)",
+        "name_en": "Basic Certificate (Detailed)",
+        "issuer_ko": "대법원 전자가족관계등록시스템",
+        "apostille_required": true,
+        "translation_required": true,
+        "validity_months": 6,
+        "required_for": "all",
+        "official_link": "https://efamily.scourt.go.kr",
+        "notes": "상세 버전으로 발급받아야 하며 번역 및 아포스티유가 필요합니다."
+      },
+      {
+        "name_ko": "가족관계증명서 (상세)",
+        "name_en": "Family Relation Certificate (Detailed)",
+        "issuer_ko": "대법원 전자가족관계등록시스템",
+        "apostille_required": true,
+        "translation_required": true,
+        "validity_months": 6,
+        "required_for": "all",
+        "official_link": "https://efamily.scourt.go.kr",
+        "notes": "상세 버전으로 발급받아야 하며 번역 및 아포스티유가 필요합니다."
+      },
+      {
+        "name_ko": "혼인관계증명서 (상세)",
+        "name_en": "Marriage Relation Certificate (Detailed)",
+        "issuer_ko": "대법원 전자가족관계등록시스템",
+        "apostille_required": true,
+        "translation_required": true,
+        "validity_months": 6,
+        "required_for": "family_only",
+        "official_link": "https://efamily.scourt.go.kr",
+        "notes": "배우자 동반 시 필수 서류입니다. 번역 및 아포스티유 필수."
+      },
+      {
+        "name_ko": "범죄·수사경력회보서 (외국 입국·체류 허가용)",
+        "name_en": "Police Clearance Certificate",
+        "issuer_ko": "경찰청",
+        "apostille_required": true,
+        "translation_required": true,
+        "validity_months": 6,
+        "required_for": "all",
+        "official_link": "https://crims.police.go.kr",
+        "notes": "실효된 형을 포함하여 발급받아야 하며 영문 발급 시 아포스티유 필요."
+      },
+      {
+        "name_ko": "출입국에 관한 사실증명",
+        "name_en": "Certificate of Entry & Exit",
+        "issuer_ko": "정부24",
+        "apostille_required": true,
+        "translation_required": true,
+        "validity_months": 6,
+        "required_for": "all",
+        "official_link": "https://www.gov.kr",
+        "notes": "출생일로부터 현재까지의 기록을 포함하여 발급해야 합니다."
+      },
+      {
+        "name_ko": "이민 신체검사서 (I-693 등)",
+        "name_en": "Report of Immigration Medical Examination",
+        "issuer_ko": "미국 대사관 지정 병원",
+        "apostille_required": false,
+        "translation_required": false,
+        "validity_months": 12,
+        "required_for": "all",
+        "official_link": "https://kr.usembassy.gov",
+        "notes": "미국 대사관이 지정한 병원에서 검진을 받아야 합니다."
+      },
+      {
+        "name_ko": "가족초청 청원서 (I-130)",
+        "name_en": "Petition for Alien Relative (Form I-130)",
+        "issuer_ko": "USCIS (미국 시민권 이민서비스국)",
+        "apostille_required": false,
+        "translation_required": false,
+        "validity_months": 0,
+        "required_for": "main_applicant",
+        "official_link": "https://www.uscis.gov/i-130",
+        "notes": "미국 시민권자 또는 영주권자 초청인이 제출해야 합니다."
+      },
+      {
+        "name_ko": "온라인 이민비자 신청서 (DS-260)",
+        "name_en": "Online Immigrant Visa Application (DS-260)",
+        "issuer_ko": "NVC (국립비자센터)",
+        "apostille_required": false,
+        "translation_required": false,
+        "validity_months": 0,
+        "required_for": "all",
+        "official_link": "https://ceac.state.gov",
+        "notes": "NVC 단계에서 온라인으로 작성 후 제출합니다."
+      },
+      {
+        "name_ko": "재정 보증서 (I-864)",
+        "name_en": "Affidavit of Support (Form I-864)",
+        "issuer_ko": "초청인 / 주신청인",
+        "apostille_required": false,
+        "translation_required": false,
+        "validity_months": 12,
+        "required_for": "main_applicant",
+        "official_link": "https://www.uscis.gov/i-864",
+        "notes": "미국 내 보증인이 연방 빈곤선의 125% 이상 소득을 증명해야 합니다."
+      }
+    ]
+  }
+}
