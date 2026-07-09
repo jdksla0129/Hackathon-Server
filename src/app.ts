@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import { rateLimit } from 'express-rate-limit';
 import path from 'path';
 import authRoutes from './routes/authRoutes';
+import translationRoutes from './routes/translationRoutes';
 import { config } from './config/env';
 
 const app = express();
@@ -46,6 +47,7 @@ app.get('/health', (req: Request, res: Response) => {
 // 6. API 라우트 등록 (로그인 엔드포인트에 Rate Limit 우선 보안 수립)
 app.use('/api/auth/google', authRateLimiter);
 app.use('/api/auth', authRoutes);
+app.use('/api/translation', translationRoutes);
 
 // 7. 존재하지 않는 엔드포인트 처리 (404 API)
 app.use((req: Request, res: Response) => {

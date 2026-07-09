@@ -44,7 +44,10 @@ export const config = {
   },
 
   // JWT Configuration
-  jwtSecret
+  jwtSecret,
+
+  // Gemini Configuration
+  geminiApiKey: process.env.GEMINI_API_KEY || ''
 };
 
 // 필수 설정 누락 시 가이드 경고 로그 출력 (서버 크래시 방지 및 점진적 환경 구축 지원)
@@ -59,6 +62,9 @@ export const checkEnvVariables = () => {
   }
   if (!process.env.GOOGLE_CLIENT_SECRET || process.env.GOOGLE_CLIENT_SECRET === 'your_google_client_secret') {
     warnings.push('GOOGLE_CLIENT_SECRET이 설정되지 않았습니다.');
+  }
+  if (!process.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY === 'your_gemini_api_key_here') {
+    warnings.push('GEMINI_API_KEY가 설정되지 않았습니다. 구글 렌즈 번역 및 보정 기능이 작동하지 않을 수 있습니다.');
   }
 
   if (warnings.length > 0) {
