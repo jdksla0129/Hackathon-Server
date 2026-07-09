@@ -5,6 +5,7 @@ import { rateLimit } from 'express-rate-limit';
 import path from 'path';
 import authRoutes from './routes/authRoutes';
 import translationRoutes from './routes/translationRoutes';
+import scheduleRoutes from './routes/scheduleRoutes';
 import { config } from './config/env';
 
 const app = express();
@@ -48,6 +49,7 @@ app.get('/health', (req: Request, res: Response) => {
 app.use('/api/auth/google', authRateLimiter);
 app.use('/api/auth', authRoutes);
 app.use('/api/translation', translationRoutes);
+app.use('/api/schedules', scheduleRoutes);
 
 // 7. 존재하지 않는 엔드포인트 처리 (404 API)
 app.use((req: Request, res: Response) => {

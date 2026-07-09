@@ -51,15 +51,19 @@ export class TranslationController {
         hostUrl
       );
 
-      // 5. 최종 데이터 성공 응답 반환
+      // 5. 최종 데이터 성공 응답 반환 (서류 로드맵, 조치 사항, 법적 의무 추가)
       res.status(200).json({
         success: true,
-        message: '구글 렌즈 텍스트 보정 및 번역 문서 생성이 성공적으로 완료되었습니다.',
+        message: '구글 렌즈 텍스트 보정, 번역 및 서류 로드맵 분석이 성공적으로 완료되었습니다.',
         data: {
           originalText: text,
           correctedText: translationResult.correctedText,
           translatedText: translationResult.translatedText,
+          documentType: translationResult.documentType,
           explanation: translationResult.explanation,
+          actionPlan: translationResult.actionPlan,
+          legalObligations: translationResult.legalObligations,
+          nextRoadmap: translationResult.nextRoadmap,
           fileName: fileResult.fileName,
           downloadUrl: fileResult.downloadUrl
         }
