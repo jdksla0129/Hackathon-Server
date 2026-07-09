@@ -28,6 +28,7 @@ export const initializeDatabase = async () => {
         email VARCHAR(255) NOT NULL UNIQUE,
         name VARCHAR(100) NOT NULL,
         picture VARCHAR(500),
+        nationality VARCHAR(2) DEFAULT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -35,6 +36,22 @@ export const initializeDatabase = async () => {
     
     await connection.query(createUsersTableQuery);
     console.log('✅ MySQL "users" 테이블 스키마 초기화가 완료되었습니다.');
+
+    // 3. 기존 테이블 대비 컬럼 동적 추가 마이그레이션 로직
+    const checkColumnQuery = `
+      SELECT 1 FROM information_schema.columns 
+      WHERE table_schema = DATABASE() 
+        AND table_name = 'users' 
+        AND column_name = 'nationality'
+    `;
+    const [columns] = await connection.query<any[]>(checkColumnQuery);
+    
+    if (columns.length === 0) {
+      await connection.query('ALTER TABLE users ADD COLUMN nationality VARCHAR(2) DEFAULT NULL');
+      console.log('✅ MySQL "users" 테이블에 "nationality" 컬럼이 성공적으로 마이그레이션(추가)되었습니다.');
+    } else {
+      console.log('ℹ️ MySQL "users" 테이블에 "nationality" 컬럼이 이미 존재합니다.');
+    }
     
     connection.release();
   } catch (error: any) {
