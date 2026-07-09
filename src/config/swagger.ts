@@ -12,7 +12,10 @@ export const swaggerSpec = {
     { name: 'Health', description: '서버 상태 확인' },
     { name: 'Auth', description: 'Google OAuth 로그인 및 유저 프로필' },
     { name: 'Translation', description: '번역 API' },
-    { name: 'Schedules', description: '행정 일정 관리 (JWT 인증 필수)' }
+    { name: 'Schedules', description: '행정 일정 관리 (JWT 인증 필수)' },
+    { name: 'Countries', description: '이민 대상 국가 및 비자 유형 조회' },
+    { name: 'Checklist', description: '이민 필수 서류 체크리스트 생성 및 조회' },
+    { name: 'ProcessingTime', description: '실시간 서류 처리 기간 정보 조회' }
   ],
   components: {
     securitySchemes: {
@@ -409,6 +412,209 @@ export const swaggerSpec = {
           200: { description: '일정 삭제 성공' },
           400: { $ref: '#/components/responses/BadRequest' },
           401: { $ref: '#/components/responses/Unauthorized' }
+        }
+      }
+    },
+    '/api/countries': {
+      get: {
+        tags: ['Countries'],
+        summary: '지원 국가 목록 조회',
+        description: '이민 서류 체크리스트 생성을 지원하는 국가 정보 목록을 반환합니다.',
+        responses: {
+          200: {
+            description: '성공적으로 조회됨',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    success: { type: 'boolean', example: true },
+                    data: {
+                      type: 'array',
+                      items: {
+                        type: 'object',
+                        properties: {
+                          code: { type: 'string', example: 'CA' },
+                          name_ko: { type: 'string', example: '캐나다' },
+                          name_en: { type: 'string', example: 'Canada' },
+                          seeded: { type: 'boolean', example: true }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    '/api/countries/{code}/visa-types': {
+      get: {
+        tags: ['Countries'],
+        summary: '특정 국가의 지원 비자 종류 목록 조회',
+        description: '특정 국가에서 선택하여 진행할 수 있는 비자 종류 목록을 반환합니다. 시드 국가(US/CA/AU)는 시드 파일 정보를 활용하고 그 외 국가는 기본 4개 종류를 반환합니다.',
+        parameters: [
+          {
+            name: 'code',
+            in: 'path',
+            required: true,
+            schema: { type: 'string' },
+            description: 'ISO-2 국가 코드 (예: US, CA, AU)',
+            example: 'CA'
+          }
+        ],
+        responses: {
+          200: {
+            description: '성공적으로 조회됨',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    success: { type: 'boolean', example: true },
+                    country: { type: 'string', example: 'CA' },
+                    visaTypes: {
+                      type: 'array',
+                      items: {
+                        type: 'object',
+                        properties: {
+                          code: { type: 'string', example: 'skilled' },
+                          name_ko: { type: 'string', example: '기술이민' },
+                          name_en: { type: 'string', example: 'Skilled Migration' }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          400: { $ref: '#/components/responses/BadRequest' }
+        }
+      }
+    },
+    '/api/checklist': {
+      post: {
+        tags: ['Checklist'],
+        summary: '이민 서류 체크리스트 생성 및 조회',
+        description: '출발 국가, 대상 국가, 비자 유형 및 동반 가족 여부에 부합하는 준비 서류 리스트를 반환합니다. 로컬 시드가 있는 경우는 시드 데이터를 가공하여, 없는 경우는 실시간 Gemini 2.5-flash API 2단계 호출을 사용하여 생성 및 캐싱(24시간) 처리합니다.',
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                required: ['from', 'to', 'visaType'],
+                properties: {
+                  from: { type: 'string', example: 'KR', description: '출발 국가 코드 (ISO-2)' },
+                  to: { type: 'string', example: 'CA', description: '목적지 국가 코드 (ISO-2)' },
+                  visaType: { type: 'string', example: 'skilled', description: '비자 유형 (skilled, family)' },
+                  family: { type: 'boolean', example: true, description: '배우자 등 동반 가족 여부' }
+                }
+              }
+            }
+          }
+        },
+        responses: {
+          200: {
+            description: '체크리스트 생성 또는 캐시 반환 성공',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    success: { type: 'boolean', example: true },
+                    data: {
+                      type: 'object',
+                      properties: {
+                        from: { type: 'string', example: 'KR' },
+                        to: { type: 'string', example: 'CA' },
+                        visaType: { type: 'string', example: 'skilled' },
+                        source: { type: 'string', example: 'seed', description: '데이터 획득 소스 (seed, gemini)' },
+                        generatedAt: { type: 'string', format: 'date-time' },
+                        documents: {
+                          type: 'array',
+                          items: {
+                            type: 'object',
+                            properties: {
+                              name_ko: { type: 'string', example: '여권 (6개월 이상 유효)' },
+                              name_en: { type: 'string', example: 'Passport (valid for at least 6 months)' },
+                              issuer_ko: { type: 'string', example: '외교부' },
+                              apostille_required: { type: 'boolean', example: false },
+                              translation_required: { type: 'boolean', example: false },
+                              validity_months: { type: 'integer', example: 6 },
+                              required_for: { type: 'string', example: 'all' },
+                              official_link: { type: 'string', example: 'https://www.passport.go.kr' },
+                              notes: { type: 'string', example: '만료일이 최소 6개월 이상 남아있어야 합니다.' }
+                            }
+                          }
+                        },
+                        sources: {
+                          type: 'array',
+                          items: { type: 'string', example: 'https://www.canada.ca' }
+                        },
+                        disclaimer: { type: 'string', example: '본 정보는 참고용이며, 최신 요건은 반드시 공식 기관에서 확인하세요.' }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          400: { $ref: '#/components/responses/BadRequest' },
+          502: { description: 'AI 응답 데이터 구조화 실패' },
+          503: { description: 'API 속도 제한 초과' }
+        }
+      }
+    },
+    '/api/processing-time': {
+      get: {
+        tags: ['ProcessingTime'],
+        summary: '캐나다 이민부(IRCC) 주요 프로그램별 실시간 처리 기간 조회',
+        description: '캐나다 공식 JSON API 데이터를 기반으로 한국인 지원자를 위한 대표 이민/비자 프로그램들의 실시간 처리 기간 목록을 가공하여 제공합니다. (현재 캐나다 CA만 가능)',
+        parameters: [
+          {
+            name: 'country',
+            in: 'query',
+            required: true,
+            schema: { type: 'string' },
+            example: 'CA',
+            description: '대상 국가 코드 (CA만 지원)'
+          }
+        ],
+        responses: {
+          200: {
+            description: '성공적으로 처리 기간 목록을 조회함',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    success: { type: 'boolean', example: true },
+                    country: { type: 'string', example: 'CA' },
+                    countryName: { type: 'string', example: 'Canada' },
+                    generatedAt: { type: 'string', format: 'date-time' },
+                    source: { type: 'string', example: 'IRCC Live JSON API' },
+                    programs: {
+                      type: 'array',
+                      items: {
+                        type: 'object',
+                        properties: {
+                          program_id: { type: 'string', example: 'study_permit' },
+                          name_ko: { type: 'string', example: '학생 비자 (Study Permit)' },
+                          name_en: { type: 'string', example: 'Study Permit (Outside Canada)' },
+                          processing_time: { type: 'string', example: '7 weeks' }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          400: { $ref: '#/components/responses/BadRequest' },
+          501: { description: '미지원 국가 요청' }
         }
       }
     }

@@ -1,0 +1,234 @@
+{
+  "to": "CA",
+  "disclaimer": "본 정보는 참고용이며, 최신 요건은 반드시 공식 기관에서 확인하세요.",
+  "sources": [
+    "https://www.canada.ca/en/immigration-refugees-citizenship.html"
+  ],
+  "visaTypes": ["skilled", "family"],
+  "documents": {
+    "skilled": [
+      {
+        "name_ko": "여권 (6개월 이상 유효)",
+        "name_en": "Passport (valid for at least 6 months)",
+        "issuer_ko": "외교부",
+        "apostille_required": false,
+        "translation_required": false,
+        "validity_months": 6,
+        "required_for": "all",
+        "official_link": "https://www.passport.go.kr",
+        "notes": "만료일이 최소 6개월 이상 남아있어야 합니다."
+      },
+      {
+        "name_ko": "기본증명서 (상세)",
+        "name_en": "Basic Certificate (Detailed)",
+        "issuer_ko": "대법원 전자가족관계등록시스템",
+        "apostille_required": true,
+        "translation_required": true,
+        "validity_months": 6,
+        "required_for": "all",
+        "official_link": "https://efamily.scourt.go.kr",
+        "notes": "상세 버전으로 발급받아야 하며 번역 및 아포스티유가 필요합니다."
+      },
+      {
+        "name_ko": "가족관계증명서 (상세)",
+        "name_en": "Family Relation Certificate (Detailed)",
+        "issuer_ko": "대법원 전자가족관계등록시스템",
+        "apostille_required": true,
+        "translation_required": true,
+        "validity_months": 6,
+        "required_for": "all",
+        "official_link": "https://efamily.scourt.go.kr",
+        "notes": "상세 버전으로 발급받아야 하며 번역 및 아포스티유가 필요합니다."
+      },
+      {
+        "name_ko": "혼인관계증명서 (상세)",
+        "name_en": "Marriage Relation Certificate (Detailed)",
+        "issuer_ko": "대법원 전자가족관계등록시스템",
+        "apostille_required": true,
+        "translation_required": true,
+        "validity_months": 6,
+        "required_for": "family_only",
+        "official_link": "https://efamily.scourt.go.kr",
+        "notes": "배우자 동반 시 필수 서류입니다. 번역 및 아포스티유 필수."
+      },
+      {
+        "name_ko": "범죄·수사경력회보서 (외국 입국·체류 허가용)",
+        "name_en": "Police Clearance Certificate",
+        "issuer_ko": "경찰청",
+        "apostille_required": true,
+        "translation_required": true,
+        "validity_months": 6,
+        "required_for": "all",
+        "official_link": "https://crims.police.go.kr",
+        "notes": "실효된 형을 포함하여 발급받아야 하며 영문 발급 시 아포스티유 필요."
+      },
+      {
+        "name_ko": "출입국에 관한 사실증명",
+        "name_en": "Certificate of Entry & Exit",
+        "issuer_ko": "정부24",
+        "apostille_required": true,
+        "translation_required": true,
+        "validity_months": 6,
+        "required_for": "all",
+        "official_link": "https://www.gov.kr",
+        "notes": "출생일로부터 현재까지의 기록을 포함하여 발급해야 합니다."
+      },
+      {
+        "name_ko": "이민 신체검사서 (Upfront Medical Exam)",
+        "name_en": "Report of Medical Examination",
+        "issuer_ko": "캐나다 이민부 지정 병원",
+        "apostille_required": false,
+        "translation_required": false,
+        "validity_months": 12,
+        "required_for": "all",
+        "official_link": "https://www.canada.ca",
+        "notes": "지정된 패널 의사에게 신체검사를 받아야 합니다."
+      },
+      {
+        "name_ko": "Express Entry 프로필 등록 서류",
+        "name_en": "Express Entry Profile Submission Document",
+        "issuer_ko": "IRCC (캐나다 이민부)",
+        "apostille_required": false,
+        "translation_required": false,
+        "validity_months": 12,
+        "required_for": "main_applicant",
+        "official_link": "https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry.html",
+        "notes": "Express Entry 시스템에 프로필을 온라인으로 등록한 서류입니다."
+      },
+      {
+        "name_ko": "ECA 학력평가인증서 (WES 등)",
+        "name_en": "Educational Credential Assessment (ECA)",
+        "issuer_ko": "WES (World Education Services) 등",
+        "apostille_required": false,
+        "translation_required": false,
+        "validity_months": 60,
+        "required_for": "main_applicant",
+        "official_link": "https://www.wes.org/ca",
+        "notes": "해외 학력을 캐나다 학력으로 동등성 평가받은 인증서입니다. 5년간 유효."
+      },
+      {
+        "name_ko": "공인 언어 성적표 (IELTS / CELPIP)",
+        "name_en": "Language Test Results (IELTS / CELPIP)",
+        "issuer_ko": "IDP / British Council / Paragon Testing",
+        "apostille_required": false,
+        "translation_required": false,
+        "validity_months": 24,
+        "required_for": "main_applicant",
+        "official_link": "https://www.ielts.org",
+        "notes": "언어 성적은 만료일 기준 2년 내의 성적만 인정됩니다."
+      },
+      {
+        "name_ko": "재정 증명서 (Proof of Funds)",
+        "name_en": "Proof of Funds",
+        "issuer_ko": "시중 은행",
+        "apostille_required": false,
+        "translation_required": true,
+        "validity_months": 6,
+        "required_for": "main_applicant",
+        "official_link": "https://www.canada.ca",
+        "notes": "캐나다 정착에 충분한 잔고가 있음을 보여주는 은행 영문 잔고증명서 및 거래 내역서입니다."
+      }
+    ],
+    "family": [
+      {
+        "name_ko": "여권 (6개월 이상 유효)",
+        "name_en": "Passport (valid for at least 6 months)",
+        "issuer_ko": "외교부",
+        "apostille_required": false,
+        "translation_required": false,
+        "validity_months": 6,
+        "required_for": "all",
+        "official_link": "https://www.passport.go.kr",
+        "notes": "만료일이 최소 6개월 이상 남아있어야 합니다."
+      },
+      {
+        "name_ko": "기본증명서 (상세)",
+        "name_en": "Basic Certificate (Detailed)",
+        "issuer_ko": "대법원 전자가족관계등록시스템",
+        "apostille_required": true,
+        "translation_required": true,
+        "validity_months": 6,
+        "required_for": "all",
+        "official_link": "https://efamily.scourt.go.kr",
+        "notes": "상세 버전으로 발급받아야 하며 번역 및 아포스티유가 필요합니다."
+      },
+      {
+        "name_ko": "가족관계증명서 (상세)",
+        "name_en": "Family Relation Certificate (Detailed)",
+        "issuer_ko": "대법원 전자가족관계등록시스템",
+        "apostille_required": true,
+        "translation_required": true,
+        "validity_months": 6,
+        "required_for": "all",
+        "official_link": "https://efamily.scourt.go.kr",
+        "notes": "상세 버전으로 발급받아야 하며 번역 및 아포스티유가 필요합니다."
+      },
+      {
+        "name_ko": "혼인관계증명서 (상세)",
+        "name_en": "Marriage Relation Certificate (Detailed)",
+        "issuer_ko": "대법원 전자가족관계등록시스템",
+        "apostille_required": true,
+        "translation_required": true,
+        "validity_months": 6,
+        "required_for": "family_only",
+        "official_link": "https://efamily.scourt.go.kr",
+        "notes": "배우자 동반 시 필수 서류입니다. 번역 및 아포스티유 필수."
+      },
+      {
+        "name_ko": "범죄·수사경력회보서 (외국 입국·체류 허가용)",
+        "name_en": "Police Clearance Certificate",
+        "issuer_ko": "경찰청",
+        "apostille_required": true,
+        "translation_required": true,
+        "validity_months": 6,
+        "required_for": "all",
+        "official_link": "https://crims.police.go.kr",
+        "notes": "실효된 형을 포함하여 발급받아야 하며 영문 발급 시 아포스티유 필요."
+      },
+      {
+        "name_ko": "출입국에 관한 사실증명",
+        "name_en": "Certificate of Entry & Exit",
+        "issuer_ko": "정부24",
+        "apostille_required": true,
+        "translation_required": true,
+        "validity_months": 6,
+        "required_for": "all",
+        "official_link": "https://www.gov.kr",
+        "notes": "출생일로부터 현재까지의 기록을 포함하여 발급해야 합니다."
+      },
+      {
+        "name_ko": "이민 신체검사서 (Medical Exam)",
+        "name_en": "Report of Medical Examination",
+        "issuer_ko": "캐나다 이민부 지정 병원",
+        "apostille_required": false,
+        "translation_required": false,
+        "validity_months": 12,
+        "required_for": "all",
+        "official_link": "https://www.canada.ca",
+        "notes": "지정 병원에서 정식으로 신체검사를 받아야 합니다."
+      },
+      {
+        "name_ko": "가족초청 공식 신청서 (IMM 1344 / IMM 0008 등)",
+        "name_en": "Sponsorship Application Forms (IMM 1344 / IMM 0008)",
+        "issuer_ko": "IRCC (캐나다 이민부)",
+        "apostille_required": false,
+        "translation_required": false,
+        "validity_months": 0,
+        "required_for": "main_applicant",
+        "official_link": "https://www.canada.ca",
+        "notes": "스폰서십 및 피초청인 패키지 양식 일체를 정확히 작성해 업로드해야 합니다."
+      },
+      {
+        "name_ko": "초청인(스폰서) 자격 증명서 (시민권/영주권 등)",
+        "name_en": "Sponsor's Eligibility Documents (Citizenship/PR)",
+        "issuer_ko": "IRCC / 캐나다 주정부",
+        "apostille_required": false,
+        "translation_required": false,
+        "validity_months": 0,
+        "required_for": "main_applicant",
+        "official_link": "https://www.canada.ca",
+        "notes": "스폰서의 캐나다 시민권 증서 또는 영주권 앞뒷면 사본입니다."
+      }
+    ]
+  }
+}

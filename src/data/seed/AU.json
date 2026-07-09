@@ -1,0 +1,234 @@
+{
+  "to": "AU",
+  "disclaimer": "본 정보는 참고용이며, 최신 요건은 반드시 공식 기관에서 확인하세요.",
+  "sources": [
+    "https://immi.homeaffairs.gov.au"
+  ],
+  "visaTypes": ["skilled", "family"],
+  "documents": {
+    "skilled": [
+      {
+        "name_ko": "여권 (6개월 이상 유효)",
+        "name_en": "Passport (valid for at least 6 months)",
+        "issuer_ko": "외교부",
+        "apostille_required": false,
+        "translation_required": false,
+        "validity_months": 6,
+        "required_for": "all",
+        "official_link": "https://www.passport.go.kr",
+        "notes": "만료일이 최소 6개월 이상 남아있어야 합니다."
+      },
+      {
+        "name_ko": "기본증명서 (상세)",
+        "name_en": "Basic Certificate (Detailed)",
+        "issuer_ko": "대법원 전자가족관계등록시스템",
+        "apostille_required": true,
+        "translation_required": true,
+        "validity_months": 6,
+        "required_for": "all",
+        "official_link": "https://efamily.scourt.go.kr",
+        "notes": "상세 버전으로 발급받아야 하며 번역 및 아포스티유가 필요합니다."
+      },
+      {
+        "name_ko": "가족관계증명서 (상세)",
+        "name_en": "Family Relation Certificate (Detailed)",
+        "issuer_ko": "대법원 전자가족관계등록시스템",
+        "apostille_required": true,
+        "translation_required": true,
+        "validity_months": 6,
+        "required_for": "all",
+        "official_link": "https://efamily.scourt.go.kr",
+        "notes": "상세 버전으로 발급받아야 하며 번역 및 아포스티유가 필요합니다."
+      },
+      {
+        "name_ko": "혼인관계증명서 (상세)",
+        "name_en": "Marriage Relation Certificate (Detailed)",
+        "issuer_ko": "대법원 전자가족관계등록시스템",
+        "apostille_required": true,
+        "translation_required": true,
+        "validity_months": 6,
+        "required_for": "family_only",
+        "official_link": "https://efamily.scourt.go.kr",
+        "notes": "배우자 동반 시 필수 서류입니다. 번역 및 아포스티유 필수."
+      },
+      {
+        "name_ko": "범죄·수사경력회보서 (외국 입국·체류 허가용)",
+        "name_en": "Police Clearance Certificate",
+        "issuer_ko": "경찰청",
+        "apostille_required": true,
+        "translation_required": true,
+        "validity_months": 6,
+        "required_for": "all",
+        "official_link": "https://crims.police.go.kr",
+        "notes": "실효된 형을 포함하여 발급받아야 하며 영문 발급 시 아포스티유 필요."
+      },
+      {
+        "name_ko": "출입국에 관한 사실증명",
+        "name_en": "Certificate of Entry & Exit",
+        "issuer_ko": "정부24",
+        "apostille_required": true,
+        "translation_required": true,
+        "validity_months": 6,
+        "required_for": "all",
+        "official_link": "https://www.gov.kr",
+        "notes": "출생일로부터 현재까지의 기록을 포함하여 발급해야 합니다."
+      },
+      {
+        "name_ko": "이민 신체검사서 (Medical Exam)",
+        "name_en": "Report of Medical Examination",
+        "issuer_ko": "호주 내무부 지정 병원 (Bupa Medical 등)",
+        "apostille_required": false,
+        "translation_required": false,
+        "validity_months": 12,
+        "required_for": "all",
+        "official_link": "https://immi.homeaffairs.gov.au",
+        "notes": "HAP ID를 발급받은 후 지정된 병원에서 검진을 받아야 합니다."
+      },
+      {
+        "name_ko": "호주 기술심사 결과보고서 (Skills Assessment)",
+        "name_en": "Skills Assessment Outcome Letter",
+        "issuer_ko": "호주 직업별 심사기관 (ACS, TRA, VETASSESS 등)",
+        "apostille_required": false,
+        "translation_required": false,
+        "validity_months": 36,
+        "required_for": "main_applicant",
+        "official_link": "https://immi.homeaffairs.gov.au",
+        "notes": "신청하려는 직업군에 부합하는 호주 내 기술심사 통과 서류입니다. 일반적으로 3년 유효."
+      },
+      {
+        "name_ko": "EOI (의향서) 제출 확인서",
+        "name_en": "Expression of Interest (EOI) Confirmation",
+        "issuer_ko": "SkillSelect",
+        "apostille_required": false,
+        "translation_required": false,
+        "validity_months": 24,
+        "required_for": "main_applicant",
+        "official_link": "https://skillselect.gov.au",
+        "notes": "SkillSelect에 의향서를 제출하고 획득한 포인트 및 내역 확인서입니다."
+      },
+      {
+        "name_ko": "공인 언어 성적표 (IELTS / PTE Academic)",
+        "name_en": "Language Test Results (IELTS / PTE)",
+        "issuer_ko": "IDP / Pearson 등",
+        "apostille_required": false,
+        "translation_required": false,
+        "validity_months": 36,
+        "required_for": "main_applicant",
+        "official_link": "https://www.pearsonpte.com",
+        "notes": "호주 기술이민의 경우 공인 영어 성적은 3년간 유효합니다."
+      },
+      {
+        "name_ko": "재정 증명서 (Financial Statement)",
+        "name_en": "Financial Capacity Evidence",
+        "issuer_ko": "시중 은행",
+        "apostille_required": false,
+        "translation_required": true,
+        "validity_months": 6,
+        "required_for": "main_applicant",
+        "official_link": "https://immi.homeaffairs.gov.au",
+        "notes": "주 정부 노미네이션 요구 등에 사용되는 영문 잔고증명서입니다."
+      }
+    ],
+    "family": [
+      {
+        "name_ko": "여권 (6개월 이상 유효)",
+        "name_en": "Passport (valid for at least 6 months)",
+        "issuer_ko": "외교부",
+        "apostille_required": false,
+        "translation_required": false,
+        "validity_months": 6,
+        "required_for": "all",
+        "official_link": "https://www.passport.go.kr",
+        "notes": "만료일이 최소 6개월 이상 남아있어야 합니다."
+      },
+      {
+        "name_ko": "기본증명서 (상세)",
+        "name_en": "Basic Certificate (Detailed)",
+        "issuer_ko": "대법원 전자가족관계등록시스템",
+        "apostille_required": true,
+        "translation_required": true,
+        "validity_months": 6,
+        "required_for": "all",
+        "official_link": "https://efamily.scourt.go.kr",
+        "notes": "상세 버전으로 발급받아야 하며 번역 및 아포스티유가 필요합니다."
+      },
+      {
+        "name_ko": "가족관계증명서 (상세)",
+        "name_en": "Family Relation Certificate (Detailed)",
+        "issuer_ko": "대법원 전자가족관계등록시스템",
+        "apostille_required": true,
+        "translation_required": true,
+        "validity_months": 6,
+        "required_for": "all",
+        "official_link": "https://efamily.scourt.go.kr",
+        "notes": "상세 버전으로 발급받아야 하며 번역 및 아포스티유가 필요합니다."
+      },
+      {
+        "name_ko": "혼인관계증명서 (상세)",
+        "name_en": "Marriage Relation Certificate (Detailed)",
+        "issuer_ko": "대법원 전자가족관계등록시스템",
+        "apostille_required": true,
+        "translation_required": true,
+        "validity_months": 6,
+        "required_for": "family_only",
+        "official_link": "https://efamily.scourt.go.kr",
+        "notes": "배우자 동반 시 필수 서류입니다. 번역 및 아포스티유 필수."
+      },
+      {
+        "name_ko": "범죄·수사경력회보서 (외국 입국·체류 허가용)",
+        "name_en": "Police Clearance Certificate",
+        "issuer_ko": "경찰청",
+        "apostille_required": true,
+        "translation_required": true,
+        "validity_months": 6,
+        "required_for": "all",
+        "official_link": "https://crims.police.go.kr",
+        "notes": "실효된 형을 포함하여 발급받아야 하며 영문 발급 시 아포스티유 필요."
+      },
+      {
+        "name_ko": "출입국에 관한 사실증명",
+        "name_en": "Certificate of Entry & Exit",
+        "issuer_ko": "정부24",
+        "apostille_required": true,
+        "translation_required": true,
+        "validity_months": 6,
+        "required_for": "all",
+        "official_link": "https://www.gov.kr",
+        "notes": "출생일로부터 현재까지의 기록을 포함하여 발급해야 합니다."
+      },
+      {
+        "name_ko": "이민 신체검사서 (Medical Exam)",
+        "name_en": "Report of Medical Examination",
+        "issuer_ko": "호주 내무부 지정 병원 (Bupa Medical 등)",
+        "apostille_required": false,
+        "translation_required": false,
+        "validity_months": 12,
+        "required_for": "all",
+        "official_link": "https://immi.homeaffairs.gov.au",
+        "notes": "지정된 대사관 지정 병원에서 검진을 받고 결과를 업로드합니다."
+      },
+      {
+        "name_ko": "파트너/가족 초청 신청서 (Form 47SP / Form 40SP)",
+        "name_en": "Sponsorship Application Forms (Form 47SP / Form 40SP)",
+        "issuer_ko": "호주 내무부 (Department of Home Affairs)",
+        "apostille_required": false,
+        "translation_required": false,
+        "validity_months": 0,
+        "required_for": "main_applicant",
+        "official_link": "https://immi.homeaffairs.gov.au",
+        "notes": "온라인 포털 ImmiAccount를 통해 피초청인과 스폰서 신청서를 각각 제출합니다."
+      },
+      {
+        "name_ko": "초청인(스폰서) 호주 자격 증명 (시민권/영주권 등)",
+        "name_en": "Sponsor's Eligibility Documents (Citizenship/PR)",
+        "issuer_ko": "호주 내무부",
+        "apostille_required": false,
+        "translation_required": false,
+        "validity_months": 0,
+        "required_for": "main_applicant",
+        "official_link": "https://immi.homeaffairs.gov.au",
+        "notes": "스폰서의 호주 시민권 증명 또는 호주 영주권 증명 서류입니다."
+      }
+    ]
+  }
+}

@@ -9,6 +9,9 @@ import authRoutes from './routes/authRoutes';
 import translationRoutes from './routes/translationRoutes';
 import scheduleRoutes from './routes/scheduleRoutes';
 import documentRoutes from './routes/documentRoutes';
+import countryRoutes from './routes/countryRoutes';
+import checklistRoutes from './routes/checklistRoutes';
+import processingRoutes from './routes/processingRoutes';
 import { config } from './config/env';
 
 const app = express();
@@ -57,6 +60,9 @@ app.use('/api/auth', authRoutes);
 app.use('/api/translation', translationRoutes);
 app.use('/api/documents', documentRoutes);
 app.use('/api/schedules', scheduleRoutes);
+app.use('/api/countries', countryRoutes);
+app.use('/api/checklist', checklistRoutes);
+app.use('/api/processing-time', processingRoutes);
 
 // 7. 존재하지 않는 엔드포인트 처리 (404 API)
 app.use((req: Request, res: Response) => {
