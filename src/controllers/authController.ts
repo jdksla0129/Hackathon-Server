@@ -29,7 +29,8 @@ export class AuthController {
         message: result.isMock ? 'Mock 로그인 성공 (Sandbox)' : 'Google OAuth 로그인 성공',
         data: {
           token: result.token,
-          user: result.user
+          user: result.user,
+          hasNationality: !!result.user.nationality
         }
       });
     } catch (error: any) {
@@ -90,7 +91,8 @@ export class AuthController {
         message: 'Google OAuth 로그인 성공',
         data: {
           token: result.token,
-          user: result.user
+          user: result.user,
+          hasNationality: !!result.user.nationality
         }
       });
     } catch (error: any) {
