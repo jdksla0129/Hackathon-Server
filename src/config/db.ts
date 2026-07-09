@@ -37,6 +37,24 @@ export const initializeDatabase = async () => {
     await connection.query(createUsersTableQuery);
     console.log('✅ MySQL "users" 테이블 스키마 초기화가 완료되었습니다.');
 
+    // 2.5. 초기 일정(schedules) 테이블 생성
+    const createSchedulesTableQuery = `
+      CREATE TABLE IF NOT EXISTS schedules (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        user_id INT NOT NULL,
+        title VARCHAR(255) NOT NULL,
+        description TEXT,
+        due_date DATETIME NOT NULL,
+        completed TINYINT(1) DEFAULT 0,
+        document_type VARCHAR(100) DEFAULT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    `;
+    await connection.query(createSchedulesTableQuery);
+    console.log('✅ MySQL "schedules" 테이블 스키마 초기화가 완료되었습니다.');
+
     // 3. 기존 테이블 대비 컬럼 동적 추가 마이그레이션 로직
     const checkColumnQuery = `
       SELECT 1 FROM information_schema.columns 
