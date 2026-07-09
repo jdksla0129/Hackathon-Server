@@ -52,6 +52,10 @@ export class TranslationController {
           correctedText: translationResult.correctedText,
           translatedText: translationResult.translatedText,
           explanation: translationResult.explanation,
+          documentType: translationResult.documentType || '일반 텍스트',
+          summary: translationResult.summary || '',
+          actionItems: translationResult.actionItems || [],
+          warnings: translationResult.warnings || [],
           fileName: fileResult.fileName,
           downloadUrl: fileResult.downloadUrl
         }

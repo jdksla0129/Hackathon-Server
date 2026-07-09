@@ -247,7 +247,50 @@ export const swaggerSpec = {
           }
         },
         responses: {
-          200: { description: '번역 성공' },
+          200: {
+            description: '번역 및 행동 지침 추출 성공',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    success: { type: 'boolean', example: true },
+                    message: { type: 'string', example: '구글 렌즈 일반 텍스트 번역 및 오타 보정이 성공적으로 완료되었습니다.' },
+                    data: {
+                      type: 'object',
+                      properties: {
+                        originalText: { type: 'string', example: '전입신고 안내문' },
+                        correctedText: { type: 'string', example: '전입신고 안내문' },
+                        translatedText: { type: 'string', example: 'Notice of Moving-in Report' },
+                        explanation: { type: 'string', example: '오탈자를 보정하고 자연스럽게 번역했습니다.' },
+                        documentType: { type: 'string', example: '출입국 및 외국인 등록 안내문' },
+                        summary: { type: 'string', example: '대한민국 내 주소지가 변경되었을 때 신고해야 하는 의무를 설명하는 문서입니다.' },
+                        actionItems: {
+                          type: 'array',
+                          items: {
+                            type: 'object',
+                            properties: {
+                              action: { type: 'string', example: '신규 이사 후 15일 이내에 체류지 변경 신고를 진행하십시오.' },
+                              deadline: { type: 'string', nullable: true, example: '이사 완료 후 15일 이내' },
+                              priority: { type: 'string', enum: ['high', 'medium', 'low'], example: 'high' },
+                              details: { type: 'string', example: '관할 주민센터 또는 하이코리아 웹사이트에서 신고하십시오.' }
+                            }
+                          }
+                        },
+                        warnings: {
+                          type: 'array',
+                          items: { type: 'string' },
+                          example: ['체류지 변경 신고 기한(15일)을 넘길 경우 최대 100만 원 이하의 과태료가 부과됩니다.']
+                        },
+                        fileName: { type: 'string', example: 'translation_1719918239_abc123.md' },
+                        downloadUrl: { type: 'string', example: 'http://localhost:3000/downloads/translation_1719918239_abc123.md' }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
           400: { $ref: '#/components/responses/BadRequest' }
         }
       }
