@@ -16,4 +16,7 @@ router.get('/google/callback', authController.handleGoogleLoginCallback);
 // 2. JWT 로그인 성공 유저 전용 프로필 조회 API (Header: Bearer [Token] 필요)
 router.get('/profile', authenticateJwt, authController.getProfile);
 
+// 3. 국적 선택 및 저장 API (Header: Bearer [Token] 필요)
+router.patch('/nationality', authenticateJwt, authController.updateNationality);
+
 export default router;

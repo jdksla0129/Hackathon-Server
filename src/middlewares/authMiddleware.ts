@@ -10,6 +10,7 @@ export interface AuthenticatedRequest extends Request {
     email: string;
     name: string;
     picture?: string;
+    nationality?: string | null;
   };
 }
 
@@ -46,7 +47,8 @@ export const authenticateJwt = async (req: AuthenticatedRequest, res: Response, 
       id: user.id!,
       email: user.email,
       name: user.name,
-      picture: user.picture
+      picture: user.picture,
+      nationality: user.nationality
     };
 
     next();

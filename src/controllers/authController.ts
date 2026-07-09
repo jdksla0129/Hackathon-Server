@@ -138,6 +138,56 @@ export class AuthController {
       });
     }
   };
+
+  /**
+   * [PATCH] /api/auth/nationality
+   * 로그인한 유저의 국적(nationality)을 선택/저장
+   */
+  updateNationality = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
+    try {
+      if (!req.user || !req.user.id) {
+        res.status(401).json({
+          success: false,
+          message: '로그인이 필요합니다.'
+        });
+        return;
+      }
+
+      const { nationality } = req.body;
+
+      if (!nationality) {
+        res.status(400).json({
+          success: false,
+          message: 'nationality 필드가 누락되었습니다.'
+        });
+        return;
+      }
+
+      // 서비스 레이어 호출
+      const updatedUser = await this.authService.updateNationality(req.user.id, nationality);
+
+      res.status(200).json({
+        success: true,
+        message: '국적 저장 성공',
+        data: {
+          user: updatedUser
+        }
+      });
+    } catch (error: any) {
+      console.error(`[AuthController] updateNationality 실패 세부로그: ${error.stack || error.message}`);
+
+      // [R-6] production 모드일 때는 세부 에러 노출을 금지하고 보편적인 에러 메시지 반환
+      const responseMessage =
+        config.nodeEnv === 'production'
+          ? '국적 정보를 저장하는 데 실패했습니다.'
+          : (error.message || '국적 정보를 저장하는 데 실패했습니다.');
+
+      res.status(400).json({
+        success: false,
+        message: responseMessage
+      });
+    }
+  };
 }
 
 // 싱글턴 인스턴스 주입 및 Export

@@ -36,6 +36,22 @@ export class UserRepository {
   }
 
   /**
+   * 유저 ID(PK)로 국적 정보 업데이트 후 최신 사용자 조회하여 반환
+   */
+  async updateNationality(userId: number, nationality: string): Promise<User> {
+    await dbPool.query(
+      'UPDATE users SET nationality = ? WHERE id = ?',
+      [nationality, userId]
+    );
+
+    const updatedUser = await this.findById(userId);
+    if (!updatedUser) {
+      throw new Error(`[UserRepository] updateNationality 실패: ID ${userId} 인 사용자를 찾을 수 없습니다.`);
+    }
+    return updatedUser;
+  }
+
+  /**
    * 구글 유저 정보 업서트 (가입 시 Race Condition 방지 단일 원자적 쿼리)
    */
   async upsert(user: User): Promise<User> {

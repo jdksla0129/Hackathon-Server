@@ -10,4 +10,8 @@
 - **개발 환경 구성**: `package.json`, `tsconfig.json`, `src/` 디렉토리 아래의 레이어드 아키텍처(Layered Architecture) 기반 기본 서버 로직 구축이 완료되었습니다. (`npm run build` 확인 완료)
 - **샌드박스(Mock) 로그인 지원**: `.env` 설정이 미비하거나 로컬 DB 연동이 아직 되지 않았더라도 서버가 문제없이 실행되고 테스트할 수 있도록, 인증 서비스(`authService.ts`)에 모의 사용자(Mock Sandbox) 지원 로직이 탑재되어 있습니다.
 - **프로덕션 수준 보안 및 최적화**: `helmet` 도입으로 HTTP 헤더를 차단 및 보호하고, `express-rate-limit` 적용으로 인증 엔드포인트 브루트포스 해킹을 차단합니다. `CORS_ORIGIN` 환경변수 세팅과 싱글턴 패턴(의존성 제어)을 구현하였으며, JWT 페이로드에 ID만 보관하고 매 요청 시 DB 조회(`findById`)를 수행하여 회원의 최신 프로필 상태를 동적으로 매핑합니다.
+- **국적(nationality) 선택/저장 스키마 및 비즈니스 규칙**:
+  - `users` 테이블에 `nationality VARCHAR(2) DEFAULT NULL` (ISO 3166-1 alpha-2) 컬럼이 도입되었으며, 기존 데이터 유실 없는 무점검 마이그레이션을 보장하기 위해 `information_schema.columns` 조회를 통한 동적 `ALTER TABLE` 마이그레이션 기법이 적용되어 있습니다.
+  - 구글 로그인 재인증 시 기 선택된 국적이 유실되는 사이드 이펙트를 완벽 방지하기 위해 `userRepository.upsert`는 해당 컬럼을 절대 건드리지 않으며, 전용 국적 갱신 엔드포인트(`PATCH /api/auth/nationality`)로만 갱신 가능합니다.
+  - 국적 정보 저장 시 대소문자 무관 처리를 위해 항상 대문자 정규화(`.trim().toUpperCase()`)를 거치며, 정규식 `/^[A-Z]{2}$/`를 활용한 서버 사이드 유효성 검증을 수행하여 비정상 데이터 인입을 차단합니다.
 

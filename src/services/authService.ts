@@ -191,6 +191,29 @@ export class AuthService {
       { expiresIn: '7d' } // 7일간 유지
     );
   }
+
+  /**
+   * 사용자의 국적을 정규화/검증한 뒤 업데이트합니다.
+   * @param userId 유저 ID
+   * @param nationality 국적 코드 (예: "KR", "US")
+   */
+  async updateNationality(userId: number, nationality: string): Promise<User> {
+    if (!nationality) {
+      throw new Error('국적 코드(nationality)가 입력되지 않았습니다.');
+    }
+
+    // 1. 소문자 입력을 대문자로 정규화 및 공백 제거
+    const normalized = nationality.trim().toUpperCase();
+
+    // 2. ISO 3166-1 alpha-2 형식 (/^[A-Z]{2}$/) 유효성 검증
+    const isoRegexp = /^[A-Z]{2}$/;
+    if (!isoRegexp.test(normalized)) {
+      throw new Error('국적 코드 형식이 유효하지 않습니다. ISO 3166-1 alpha-2 형식(예: KR, US)이어야 합니다.');
+    }
+
+    // 3. Repository를 통한 업데이트 및 최신 정보 조회 반환
+    return await this.userRepository.updateNationality(userId, normalized);
+  }
 }
 
 // 싱글턴 인스턴스 주입 및 Export
