@@ -3,6 +3,8 @@ import cors from 'cors';
 import helmet from 'helmet';
 import { rateLimit } from 'express-rate-limit';
 import path from 'path';
+import swaggerUi from 'swagger-ui-express';
+import { swaggerSpec } from './config/swagger';
 import authRoutes from './routes/authRoutes';
 import translationRoutes from './routes/translationRoutes';
 import scheduleRoutes from './routes/scheduleRoutes';
@@ -44,6 +46,9 @@ app.get('/health', (req: Request, res: Response) => {
     message: 'Express + TS Server is running smoothly!'
   });
 });
+
+// 5-1. Swagger API 문서 (http://localhost:PORT/api-docs)
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // 6. API 라우트 등록 (로그인 엔드포인트에 Rate Limit 우선 보안 수립)
 app.use('/api/auth/google', authRateLimiter);
