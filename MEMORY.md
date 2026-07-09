@@ -21,6 +21,10 @@
 - **번역(Translation)과 서류 분석(Documents) 도메인의 완벽한 아키텍처적 분리 (2026-07-09)**:
   - 단일 책임 원칙(SRP)과 직관적인 API 명세 확립을 위해, 단순 텍스트 교정/번역을 수행하던 `translation` 도메인으로부터 서류 분석, 가이드라인 도출, 후속 서류 로드맵 산출 로직을 완벽히 도려내어 독자적인 `documents` 도메인으로 분리 이전했습니다.
   - 이에 따라 일반 텍스트 번역 엔드포인트는 `POST /api/translation/translate`로 복원하여 단순화하였으며, 행정 서류 심층 분석은 독립된 전용 통로인 `POST /api/documents/analyze`로 이동하여 깔끔하고 전문화된 패키징 구조를 정초했습니다.
-
-
-
+- **번역(Translation) + 행동 안내(Action Guidance) 3단계 파이프라인 고도화 (2026-07-09)**:
+  - 단순 오타 보정 및 번역을 수행하던 `/api/translation/translate`를 3단계의 순차 Gemini 1.5 Pro 호출 파이프라인 및 경량 로컬 RAG 검색 구조로 고도화했습니다.
+  - **RAG**: `src/knowledge/documentGuides.json`에 공과금, 출입국, 주택임대차 등 8대 밀착형 한국 행정 지식을 마련하고, 교정 텍스트 대상 키워드 매칭을 통해 STEP 2에 Context를 주입합니다.
+  - **STEP 1 (보정&번역)**: `gemini-1.5-pro` 모델 적용 및 온도를 0.1로 고정하여 번역 질과 보정 정확도를 극대화했습니다.
+  - **STEP 2 (분석&액션)**: RAG 지식 및 할루시네이션 방지 지침 하에 행동 지침(ActionItems, Warnings)을 JSON 형태로 정밀 분석합니다.
+  - **STEP 3 (Google Grounding)**: 구글 검색을 활용해 분석된 행동 수칙과 문서 유형에 맞는 절차(URL, 전용 수납망)를 검증 및 보강합니다.
+  - **에러 복구력 (Graceful Degradation)**: 핵심 기능(STEP 1) 이외의 분석 단계(STEP 2, STEP 3)에서 실패가 발생하더라도 전체 프로세스를 중단하지 않고, 빈 결과 리스트와 상세 에러 원인 노트를 합리적으로 수반하여 응답 및 문서를 정상 반환하는 방어적 아키텍처를 구현했습니다.
