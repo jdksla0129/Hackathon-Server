@@ -1,0 +1,8 @@
+# =====================================================
+# Production override — use prebuilt image from GHCR
+# Used by CD: APP_IMAGE is set to the tag pushed to GHCR.
+# =====================================================
+services:
+  app:
+    image: ${APP_IMAGE:?APP_IMAGE is required (e.g. ghcr.io/owner/repo:v1.0.0)}
+    pull_policy: always
