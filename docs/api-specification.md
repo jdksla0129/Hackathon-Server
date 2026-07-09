@@ -394,6 +394,95 @@ curl -X PATCH http://localhost:3000/api/auth/nationality \
 
 ---
 
+### [POST] /api/translation/translate
+
+**목적:** 일반적인 구글 렌즈 추출 날것의 텍스트 오타/줄바꿈을 보정하고 사용자가 원하는 특정 언어로 번역 및 교정 노트를 작성합니다. (순수 일반 문장 번역 전용)
+
+**요청 파라미터:**
+
+| 위치 | 필드 | 타입 | 필수 | 설명 |
+|------|------|------|------|------|
+| Body | text | string | O | 구글 렌즈로 추출한 원본 다국어 텍스트 |
+| Body | targetLanguage | string | X | 타겟 번역 언어 코드 (기본값: `"ko"`) |
+| Body | sourceLanguage | string | X | 감지 소스 언어 코드 (기본값: `"auto"`) |
+| Body | format | string | X | 보고서 파일 저장 아웃풋 형식 (`"md"` 또는 `"txt"`, 기본값: `"md"`) |
+
+**응답 형식:** (200)
+```json
+{
+  "success": true,
+  "message": "구글 렌즈 일반 텍스트 번역 및 오타 보정이 성공적으로 완료되었습니다.",
+  "data": {
+    "originalText": "안녕하셔요 반갑습네다 오늘 날시가 참 조내요",
+    "correctedText": "안녕하세요 반갑습니다 오늘 날씨가 참 좋네요 (AI 보정 완료)",
+    "translatedText": "[Mock Translation - 영어 (English)] ... Hello, Nice to meet you. Today's weather is really good ...",
+    "explanation": "이 모의 응답은 순수 번역 Sandbox용입니다. 타겟 언어: en, 감지 소스: auto",
+    "fileName": "translation_1720567200000_abc123.md",
+    "downloadUrl": "http://localhost:3000/downloads/translation_1720567200000_abc123.md"
+  }
+}
+```
+
+---
+
+### [POST] /api/documents/analyze
+
+**목적:** 이민자가 전송한 오타 가득한 행정 서류(임대차계약서, 외국인등록증, 근로계약서 등)의 핵심 정보를 감지하여 **서류 유형 식별, 구체적 실천 지침(Action Plan), 벌금 및 신고기한 가이드(Legal Obligations), 연계 후속 제출 서류 로드맵**을 일체로 종합 보고서 형태로 도출해 주는 특화 엔진입니다. (사용자 요구사항 구현 핵심 도메인)
+
+**요청 파라미터:**
+
+| 위치 | 필드 | 타입 | 필수 | 설명 |
+|------|------|------|------|------|
+| Body | text | string | O | 구글 렌즈 등으로 획득한 오타 가득한 원본 서류 텍스트 내용 |
+| Body | targetLanguage | string | X | 번역해서 전달받을 대상 언어 코드 (기본값: `"ko"`) |
+| Body | sourceLanguage | string | X | 소스 언어 감지 코드 (기본값: `"auto"`) |
+| Body | format | string | X | 종합 서류 보고서 파일 저장 확장자 (`"md"` 또는 `"txt"`, 기본값: `"md"`) |
+
+**응답 형식:** (200)
+```json
+{
+  "success": true,
+  "message": "구글 렌즈 이민 서류 분석 및 연계 로드맵 산출이 성공적으로 완료되었습니다.",
+  "data": {
+    "originalText": "보증금 1000만원 월세 50만원 전세 계약서입니다. 임대인과 임차인 계약 완료",
+    "correctedText": "보증금 1000만원 월세 50만원 전세 계약서입니다. 임대인과 임차인 계약 완료 (AI 보정 완료)",
+    "translatedText": "[Mock Translation - 영어 (English)] ...",
+    "documentType": "부동산 임대차 계약서 (Housing Lease Agreement)",
+    "explanation": "이 모의 응답은 Sandbox 개발 및 테스트용입니다. 실제로 작동하려면 .env에 유효한 구글 AI API 키를 입력해 주세요. 타겟 언어: en, 감지 소스: auto",
+    "actionPlan": [
+      "계약서 상의 보증금 및 월세 금액, 납부일을 다시 한 번 검토하세요.",
+      "임대인(집주인)과 임차인(본인)의 신원 정보가 신분증과 일치하는지 대조하십시오.",
+      "계약 잔금을 납부하고 열쇠를 수령한 당일, 반드시 주민센터나 인터넷등기소에서 확정일자를 받으십시오."
+    ],
+    "legalObligations": [
+      "주택임대차보호법에 따라 임대차 계약 체결일(계약금 가계약 포함)로부터 30일 이내에 주택 임대차 신고(전월세 신고)를 해야 합니다. (지연 시 과태료 발생)",
+      "출입국관리법 제36조에 따라, 이사 후 반드시 **14일 이내**에 체류지 변경 신고를 마쳐야 합니다. 기한 초과 시 출입국관리법 위반으로 최대 100만 원 이하의 과태료가 부과됩니다."
+    ],
+    "nextRoadmap": {
+      "currentStep": "주거 계약 완료 및 한국 내 주소지 확정 단계",
+      "nextSteps": [
+        {
+          "documentName": "체류지 변경신고서 (Report of Change of Residence)",
+          "description": "임대차 계약서 사본과 외국인등록증을 제출하여 법적인 거주지 등록을 완료하는 행정 절차입니다.",
+          "deadline": "이사 입주 완료일로부터 14일 이내",
+          "howToApply": "거주지 관할 주민센터 방문(동주민센터 추천), 관할 출입국사무소 방문, 또는 하이코리아(Hikorea.go.kr)에서 온라인 신청"
+        },
+        {
+          "documentName": "주택 임대차 계약 확정일자 부여 신청 (Application for Fixed Date)",
+          "description": "임대인 사정으로 집이 경매에 넘어갈 경우 보증금을 우선적으로 보호받기 위한(우선변제권 확보) 법적 장치입니다.",
+          "deadline": "잔금 지급 및 입주 완료 당일 즉시 처리 권장",
+          "howToApply": "관할 동 주민센터 방문(계약서 원본 지참 필수) 또는 대법원 인터넷등기소 홈페이지 온라인 신청"
+        }
+      ]
+    },
+    "fileName": "document_analysis_1720567210000_xyz789.md",
+    "downloadUrl": "http://localhost:3000/downloads/document_analysis_1720567210000_xyz789.md"
+  }
+}
+```
+
+---
+
 ## 공통 에러 응답
 
 ### 404 Not Found

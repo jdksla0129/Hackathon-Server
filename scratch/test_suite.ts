@@ -1,4 +1,5 @@
 import { translationService } from '../src/services/translationService';
+import { documentService } from '../src/services/documentService';
 import { scheduleService } from '../src/services/scheduleService';
 import { scheduleRepository } from '../src/repositories/scheduleRepository';
 import { Schedule } from '../src/types/schedule';
@@ -30,18 +31,39 @@ function assert(condition: boolean, testName: string, errorMessage?: string) {
 
 async function runTestSuite() {
   console.log(`\n============================================================`);
-  console.log(`🚀 ${BOLD}${CYAN}이민자 서류 번역, 로드맵 및 일정 자동생성 테스트 스위트 구동${RESET}`);
+  console.log(`🚀 ${BOLD}${CYAN}이민자 서류 분석(Documents) 및 일정 연동 테스트 스위트 구동${RESET}`);
   console.log(`============================================================`);
 
   // -------------------------------------------------------------------------
-  // 1. TranslationService (Mock 모드 분기) 테스트
+  // 1. TranslationService (순수 일반 번역) 테스트
   // -------------------------------------------------------------------------
-  console.log(`\n${BOLD}${YELLOW}[1단계] TranslationService 번역 및 서류 유형 감지 검사${RESET}`);
+  console.log(`\n${BOLD}${YELLOW}[1단계] TranslationService 순수 일반 문장 번역 및 오타 교정 검사${RESET}`);
+  try {
+    const rawText = '안녕하셔요 반갑습네다 오늘 날시가 참 조내요';
+    console.log(`  🔎 일반 문장 번역 실행 중...`);
+    const translationResult = await translationService.translateAndCorrect(rawText, 'en');
+    
+    assert(
+      translationResult.correctedText.includes('AI 보정 완료'),
+      '일반 번역 수행 시 오타 보정이 시뮬레이션되어 결과에 명시되는가?'
+    );
+    assert(
+      translationResult.translatedText.includes('[Mock Translation'),
+      'Gemini API Key 누락 시 번역결과가 Mock 데이터로 정상 우회 처리되는가?'
+    );
+  } catch (error: any) {
+    console.error(`  ${RED}✗ [ERROR]${RESET} 순수 번역 검증 중 예외 발생:`, error.message);
+  }
+
+  // -------------------------------------------------------------------------
+  // 2. DocumentService (이민자 행정 서류 전용 분석) 테스트
+  // -------------------------------------------------------------------------
+  console.log(`\n${BOLD}${YELLOW}[2단계] DocumentService 행정 서류 전용 심층 분석 및 법적 가이드 검사${RESET}`);
   
   try {
     // A. 부동산 임대차 계약서 키워드 감지 테스트
-    console.log(`\n  🔎 부동산 계약 텍스트 입력 분석 중...`);
-    const rentResult = await translationService.translateAndCorrect(
+    console.log(`  🔎 부동산 계약 서류 입력 분석 중...`);
+    const rentResult = await documentService.analyzeDocument(
       '보증금 1000만원 월세 50만원 전세 계약서입니다. 임대인과 임차인 계약 완료',
       'en'
     );
@@ -66,8 +88,8 @@ async function runTestSuite() {
     );
 
     // B. 외국인등록증 키워드 감지 테스트
-    console.log(`\n  🔎 외국인등록증 텍스트 입력 분석 중...`);
-    const arcResult = await translationService.translateAndCorrect(
+    console.log(`\n  🔎 외국인등록증 서류 입력 분석 중...`);
+    const arcResult = await documentService.analyzeDocument(
       'My Alien Registration Card (ARC) has nationality of United States',
       'ko'
     );
@@ -87,13 +109,13 @@ async function runTestSuite() {
     );
 
   } catch (error: any) {
-    console.error(`  ${RED}✗ [ERROR]${RESET} 번역 서비스 검증 중 예외 발생:`, error.message);
+    console.error(`  ${RED}✗ [ERROR]${RESET} 서류 분석 서비스 검증 중 예외 발생:`, error.message);
   }
 
   // -------------------------------------------------------------------------
-  // 2. ScheduleService (일정 자동생성 수학 및 날짜 연산) 테스트
+  // 3. ScheduleService (일정 자동생성 수학 및 날짜 연산) 테스트
   // -------------------------------------------------------------------------
-  console.log(`\n\n${BOLD}${YELLOW}[2단계] ScheduleService 일정 연동 및 데드라인 생성 검사 (Mock Repository 적용)${RESET}`);
+  console.log(`\n\n${BOLD}${YELLOW}[3단계] ScheduleService 일정 연동 및 데드라인 생성 검사 (Mock Repository 적용)${RESET}`);
 
   // DB 에러를 우회하고 순수 일정 자동 연산 수학을 증명하기 위해 scheduleRepository.create 및 findById 모킹
   const originalCreate = scheduleRepository.create;
